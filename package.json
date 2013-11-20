@@ -1,0 +1,22 @@
+{
+    "name": "fix-ver",
+    "version": "0.0.1",
+    "description": "fix the versions in 'dependencies' package.json",
+    "main": "./cli.js",
+    "bin": {
+        "fixVer": "./cli.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "",
+    "keywords": [
+        "package.json", 
+        "write version"
+    ],
+    "author":  {
+        "name": "wei.gao",
+        "email": "jky239@gmail.com"
+    },
+    "license": "BSD"
+}
