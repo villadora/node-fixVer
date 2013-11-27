@@ -2,7 +2,7 @@
 
 Fix version for your dependencies in 'package.json'
 
-    npm install -g fixVer
+    npm install -g fix-ver
 
 
 ## License
