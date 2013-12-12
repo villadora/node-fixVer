@@ -12,22 +12,35 @@ if(!fs.existsSync(pkgPath)) {
     process.exit(1);
 }
 
-
 var pkgJSON = require(pkgPath),
-    deps = pkgJSON.dependencies;
+    deps = pkgJSON.dependencies, 
+    devDeps = pkgJSON.devDependencies,
+    optDeps = pkgJSON.optionalDependencies;
 
 
-
-if(!fs.existsSync(nmPath)) {
+if((deps || devDeps) && !fs.existsSync(nmPath)) {
     console.error('\x1B[31mPlease run \'npm install\' first\x1B[39m');
     process.exit(1);
 }
 
-Object.keys(deps).forEach(function(pkg) {
-    var version = deps[pkg];
-    if(!version || /^\s*$/.test(version))
-        deps[pkg] = "~" + require(join(nmPath, pkg, 'package.json')).version;
-});
+function fixDeps(deps) {
+    Object.keys(deps).forEach(function(pkg) {
+            var version = deps[pkg], depPkg;
+        if(!version || /^\s*$/.test(version)) {
+            try {
+                depPkg = require(join(nmPath, pkg, 'package.json'));
+            }catch(e) {
+                console.warn('\x1B[33mCan not find dep package for "' + pkg + '"\x1B[39m');
+                return;
+            }
+            deps[pkg] = "~" + depPkg.version;
+        }
+    });
+}
+
+deps && fixDeps(deps);
+devDeps && fixDeps(devDeps);
+optDeps && fixDeps(optDeps);
 
 fs.writeFileSync(pkgPath, JSON.stringify(pkgJSON, null, 4));
 console.log('\x1B[32mdone!\x1B[39m');
@@ -35,4 +48,4 @@ console.log('\x1B[32mdone!\x1B[39m');
 
 
 
-    
+

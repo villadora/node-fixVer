@@ -4,6 +4,11 @@ Fix version for your dependencies in 'package.json'
 
     npm install -g fix-ver
 
+To use it, just run: 
+
+   fixVer 
+
+in your repository.
 
 ## License
 

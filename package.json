@@ -1,6 +1,6 @@
 {
     "name": "fix-ver",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "fix the versions in 'dependencies' package.json",
     "main": "./cli.js",
     "bin": {
@@ -14,12 +14,13 @@
         "url": "git@github.com:villadora/node-fixVer.git"
     },
     "keywords": [
-        "package.json", 
+        "package.json",
         "write version"
     ],
-    "author":  {
+    "author": {
         "name": "wei.gao",
         "email": "jky239@gmail.com"
     },
+    "readmeFilename": "README.md",
     "license": "BSD"
 }
