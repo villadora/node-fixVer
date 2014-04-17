@@ -1,7 +1,7 @@
 {
     "name": "fix-ver",
-    "version": "0.0.2",
-    "description": "fix the versions in 'dependencies' package.json",
+    "version": "0.0.3",
+    "description": "fix the versions in 'dependencies' package.json, whether make an absolute version for working package in production, or adding missing versions",
     "main": "./cli.js",
     "bin": {
         "fixVer": "./cli.js"
@@ -9,7 +9,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "repository": {     
+    "repository": {
         "type": "git",
         "url": "git@github.com:villadora/node-fixVer.git"
     },

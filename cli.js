@@ -7,6 +7,15 @@ var fs = require('fs'),
     pkgPath = join(cwd, 'package.json'),
     nmPath = join(cwd, 'node_modules');
 
+var argv = process.argv;
+
+var fixed = false;
+
+argv.forEach(function(opt) {
+    if(opt == '-f' || opt == '--fixed')
+        fixed = true;
+});
+
 if(!fs.existsSync(pkgPath)) {
     console.error('\x1B[31mConnot find package.json in current directory\x1B[39m');
     process.exit(1);
@@ -26,14 +35,17 @@ if((deps || devDeps) && !fs.existsSync(nmPath)) {
 function fixDeps(deps) {
     Object.keys(deps).forEach(function(pkg) {
             var version = deps[pkg], depPkg;
-        if(!version || /^\s*$/.test(version)) {
+        if(fixed ||!version || /^\s*$/.test(version)) {
             try {
                 depPkg = require(join(nmPath, pkg, 'package.json'));
             }catch(e) {
                 console.warn('\x1B[33mCan not find dep package for "' + pkg + '"\x1B[39m');
                 return;
             }
-            deps[pkg] = "~" + depPkg.version;
+            if(fixed) 
+                deps[pkg] = depPkg.version;
+            else
+                deps[pkg] = "~" + depPkg.version;
         }
     });
 }
